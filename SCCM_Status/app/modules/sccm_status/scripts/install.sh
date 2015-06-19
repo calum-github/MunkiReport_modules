@@ -12,7 +12,7 @@ if [ $? = 0 ]; then
         chmod a+x "${MUNKIPATH}preflight.d/sccm_status_info.sh"
 
         # Set preference to include this file in the preflight check
-        defaults write "${PREFPATH}" ReportItems -dict-add sccm_status "${MUNKIPATH}preflight.d/cache/sccm_status.txt"
+        setreportpref "sccm_status" "${CACHEPATH}sccm_status.txt"
 
 else
         echo "Failed to download all required components!"
