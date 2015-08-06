@@ -1,34 +1,45 @@
 <div class="col-lg-4 col-md-6">
 
-			<div class="panel panel-default">
+	<div id="site-info-site-widget" class="panel panel-default">
 
-				<div class="panel-heading" data-container="body" title="Client Count Per Site">
+		<div class="panel-heading" data-container="body" title="Client Count Per Site">
 
-			    	<h3 class="panel-title"><i class="fa fa-sitemap"></i> Client Count Per Site</h3>
+	    	<h3 class="panel-title"><i class="fa fa-sitemap"></i> Client Count Per Site</h3>
 
-				</div>
-				<div class="list-group scroll-box">
+		</div>
+		<div class="list-group scroll-box"></div>
 
-					<?php	$munkireport = new Munkireport_model();
-							$sql = "SELECT site_name, COUNT(1) AS count
-									FROM site_info
-									GROUP BY site_name
-									ORDER BY COUNT DESC";
-					?>
-						<?php foreach($munkireport->query($sql) as $obj): ?>
-							<?php if (empty($obj->site_name)):?>
-								<a class="list-group-item"><span data-i18n="unknown">Unknown</span>
-									<span class="badge pull-right"><?php echo $obj->count; ?></span>
-								</a>
-							<?php else: ?>
-								<a href="<?php echo url('show/listing/site_info/#'.$obj->site_name); ?>" class="list-group-item"><?php echo $obj->site_name; ?>
-									<span class="badge pull-right"><?php echo $obj->count; ?></span>
-								</a>
-							<?php endif; ?>
-						<?php endforeach; ?>
+	</div><!-- /panel -->
 
-				</div><!-- /scroll-box -->
+</div><!-- /col -->
 
-			</div><!-- /panel -->
+<script>
+$(document).on('appReady appUpdate', function(){
 
-		</div><!-- /col -->
+    $.getJSON( appUrl + '/module/site_info/get_groups/site_name', function( data ) {
+
+        var scrollBox = $('#site-info-site-widget .scroll-box').empty();
+
+        $.each(data, function(index, obj){
+            obj.site_name = obj.site_name || 'Unknown';
+            scrollBox
+                .append($('<a>')
+                    .addClass('list-group-item')
+                    .attr('href', appUrl + '/module/site_info/listing/#' + obj.serial_number)
+                    .append(obj.site_name)
+                    .append($('<span>')
+                        .addClass('badge pull-right')
+                        .text(obj.count)));
+
+        });
+
+        if( ! data.length){
+            scrollBox
+                .append($('<span>')
+                    .addClass('list-group-item')
+                    .text(i18n.t('no_clients')))
+        }
+
+    });				
+});
+</script>
