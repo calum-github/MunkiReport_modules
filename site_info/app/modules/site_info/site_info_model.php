@@ -31,6 +31,30 @@ class Site_info_model extends Model {
                   
         }
         
+        /**
+    	 * Get statistics
+    	 *
+    	 * @return array
+    	 * @author
+    	 **/
+    	function get_groups($type)
+    	{
+            $out = array();
+            $sql = "SELECT $type, COUNT(1) AS count
+                    FROM site_info
+                    LEFT JOIN reportdata USING (serial_number)
+                    ".get_machine_group_filter()."
+                    GROUP BY $type
+                    ORDER BY COUNT DESC";
+            $stmt = $this->prepare( $sql );
+    		$this->execute($stmt);
+            while ( $rs = $stmt->fetch( PDO::FETCH_OBJ ) ) 
+    		{
+    			$out[] = array($type => $rs->$type, 'count' => $rs->count);
+    		}
+    		return $out;
+    	}
+        
         // ------------------------------------------------------------------------
 
         /**

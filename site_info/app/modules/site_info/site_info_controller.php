@@ -64,7 +64,27 @@ class Site_info_controller extends Module_controller
             $obj->view('site_info_listing', $data, $this->view_path);
         }
 
+        /**
+         * Get statistics
+         *
+         * Get statistics grouped by type
+         *
+         * @param String type group by region_name or site_name
+         **/
+        public function get_groups($type='')
+        {
+            $obj = new View();
 
+            if( ! $this->authorized())
+            {
+                $obj->view('json', array('msg' => 'Not authorized'));
+                return;
+            }
+
+            $site_info = new Site_info_model;
+            $obj->view('json', array('msg' => $site_info->get_groups($type)));
+        }
         
 } // END class default_module
+
 
