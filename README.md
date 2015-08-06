@@ -12,6 +12,11 @@ Copy the module folder into the app/modules folder inside the munkireport direct
 
 To show the module as a tab in the client view and add a listing view for it, we need to add a custom javascript file. Copy the custom folder into the munkireport directory on your server.
 
+Add the following line to config.php
+
+```php
+$conf['custom_js'] = conf('subdirectory') . 'custom/custom.js';
+```
 
 #### Adding Widgets to the dashboard
 If you have created some widgets and want to display them on the dashboard all you need to do is
