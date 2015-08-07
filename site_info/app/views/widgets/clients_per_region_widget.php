@@ -22,12 +22,12 @@ $(document).on('appReady appUpdate', function(){
         var scrollBox = $('#site-info-region-widget .scroll-box').empty();
 
         $.each(data, function(index, obj){
-            obj.region_name = obj.region_name || 'Unknown';
+            var name = obj.region_name || 'Unknown';
             scrollBox
                 .append($('<a>')
                     .addClass('list-group-item')
-                    .attr('href', appUrl + '/module/site_info/listing/#' + obj.serial_number)
-                    .append(obj.region_name)
+                    .attr('href', appUrl + '/module/site_info/listing/#' + name)
+                    .append(name)
                     .append($('<span>')
                         .addClass('badge pull-right')
                         .text(obj.count)));

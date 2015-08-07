@@ -21,12 +21,12 @@ $(document).on('appReady appUpdate', function(){
         var scrollBox = $('#site-info-site-widget .scroll-box').empty();
 
         $.each(data, function(index, obj){
-            obj.site_name = obj.site_name || 'Unknown';
+            var name = obj.site_name || 'Unknown';
             scrollBox
                 .append($('<a>')
                     .addClass('list-group-item')
-                    .attr('href', appUrl + '/module/site_info/listing/#' + obj.serial_number)
-                    .append(obj.site_name)
+                    .attr('href', appUrl + '/module/site_info/listing/#' + name)
+                    .append(name)
                     .append($('<span>')
                         .addClass('badge pull-right')
                         .text(obj.count)));
