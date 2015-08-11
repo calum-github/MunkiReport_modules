@@ -1,5 +1,5 @@
 <?php
-class site_info_model extends Model {
+class Site_info_model extends Model {
 
         function __construct($serial='')
         {
@@ -23,11 +23,37 @@ class site_info_model extends Model {
                 $this->create_table();
                 
                 if ($serial)
-                        $this->retrieve_one('serial_number=?', $serial);
+                {
+                    $this->retrieve_record($serial);
+                }
                 
                 $this->serial = $serial;
                   
         }
+        
+        /**
+    	 * Get statistics
+    	 *
+    	 * @return array
+    	 * @author
+    	 **/
+    	function get_groups($type)
+    	{
+            $out = array();
+            $sql = "SELECT $type, COUNT(1) AS count
+                    FROM site_info
+                    LEFT JOIN reportdata USING (serial_number)
+                    ".get_machine_group_filter()."
+                    GROUP BY $type
+                    ORDER BY COUNT DESC";
+            $stmt = $this->prepare( $sql );
+    		$this->execute($stmt);
+            while ( $rs = $stmt->fetch( PDO::FETCH_OBJ ) ) 
+    		{
+    			$out[] = array($type => $rs->$type, 'count' => $rs->count);
+    		}
+    		return $out;
+    	}
         
         // ------------------------------------------------------------------------
 

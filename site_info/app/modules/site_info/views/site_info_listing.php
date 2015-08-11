@@ -3,7 +3,7 @@
 <?php //Initialize models needed for the table
 new Machine_model;
 new Reportdata_model;
-new site_info_model;
+new Site_info_model;
 ?>
 
 <div class="container">
@@ -22,13 +22,13 @@ new site_info_model;
 				});
 			    oTable = $('.table').dataTable( {
 			        "aoColumns": myCols,
-			        "sAjaxSource": "<?php echo url('datatables/data'); ?>",
+			        "sAjaxSource": appUrl + '/datatables/data',
 			        "fnCreatedRow": function( nRow, aData, iDataIndex ) {
 			        	// Update name in first column to link
 			        	var name=$('td:eq(0)', nRow).html();
 			        	if(name == ''){name = "No Name"};
 			        	var sn=$('td:eq(1)', nRow).html();
-			        	var link = get_client_detail_link(name, sn, '<?php echo url(); ?>/');
+			        	var link = get_client_detail_link(name, sn, appUrl + '/', '#tab_site-info');
 			        	$('td:eq(0)', nRow).html(link);
 
 			        }
@@ -42,11 +42,11 @@ new site_info_model;
 		    <thead>
 		      <tr>
 		      	<th data-i18n="listing.computername" data-colname='machine#computer_name'>Name</th>
-		        <th data-i18n="serial" data-colname='machine#serial_number'>Serial</th>
-		        <th data-i18n="listing.site_info.site_name" data-i18n-options='{"number":1}' data-colname='site_info#site_name'>Site Name</th>
-		        <th data-i18n="listing.site_info.site_code" data-i18n-options='{"number":2}' data-colname='site_info#site_code'>Site Code</th>
-		        <th data-i18n="listing.site_info.region_name" data-i18n-options='{"number":3}' data-colname='site_info#region_name'>Region</th>
-		        <th data-i18n="listing.site_info.school_type" data-i18n-options='{"number":4}' data-colname='site_info#school_type'>School Type</th>
+		        <th data-i18n="serial" data-colname='reportdata#serial_number'>Serial</th>
+		        <th data-colname='site_info#site_name'>Site Name</th>
+		        <th data-colname='site_info#site_code'>Site Code</th>
+		        <th data-colname='site_info#region_name'>Region</th>
+		        <th data-colname='site_info#school_type'>School Type</th>
 		      </tr>
 		    </thead>
 		    <tbody>

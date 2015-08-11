@@ -6,42 +6,16 @@ Feel free to use
 
 #### Instructions for adding a module
 
-Copy the modules files into the relevant folders inside the munkireport directory on your server
+Copy the module folder into the app/modules folder inside the munkireport directory on your server
 
 #### Adding a module to the client tab (optional)
 
-To show the module as a tab in the client view we need to edit 
-```
-/munkireport/app/views/client/client_detail.php
-```
+To show the module as a tab in the client view and add a listing view for it, we need to add a custom javascript file. Copy the custom folder into the munkireport directory on your server.
 
-Look for the lines like this:
-```
-<li>
-<a href="#ard-tab" data-toggle="tab">ARD</a>
-</li>
-```
+Add the following line to config.php
 
-Copy and paste an extra li block in and replace the text with the name of your module
-so that it looks like this for example:
-```
-<li>
-<a href="#site_info-tab" data-toggle="tab">Site Info</a>
-</li>
-```
-
-Now in the same file look for the div class definitions:
-```
-<div class="tab-pane" id='bluetooth-tab'>
- <?$this->view('client/bluetooth_tab')?>
-</div>
-```
-
-Copy and pase another one of these in and rename it to suit:
-```
-<div class="tab-pane" id='site_info-tab'>
- <?$this->view('client/site_info_tab')?>
-</div>
+```php
+$conf['custom_js'] = conf('subdirectory') . 'custom/custom.js';
 ```
 
 #### Adding Widgets to the dashboard
