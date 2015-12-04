@@ -1,15 +1,15 @@
 <div class="col-lg-4 col-md-6">
 
-	<div id="site-info-site-widget" class="panel panel-default">
+        <div id="site-info-site-widget" class="panel panel-default">
 
-		<div class="panel-heading" data-container="body" title="Client Count Per Site">
+                <div class="panel-heading" data-container="body" title="Client Count Per Site">
 
-	    	<h3 class="panel-title"><i class="fa fa-sitemap"></i> Client Count Per Site</h3>
+                <h3 class="panel-title"><i class="fa fa-sitemap"></i> Client Count Per Site  <span class="counter badge pull-right"></span></h3>
 
-		</div>
-		<div class="list-group scroll-box"></div>
+                </div>
+                <div class="list-group scroll-box"></div>
 
-	</div><!-- /panel -->
+        </div><!-- /panel -->
 
 </div><!-- /col -->
 
@@ -33,6 +33,8 @@ $(document).on('appReady appUpdate', function(){
 
         });
 
+	$('#site-info-site-widget .counter').html(data.length);
+
         if( ! data.length){
             scrollBox
                 .append($('<span>')
@@ -40,6 +42,6 @@ $(document).on('appReady appUpdate', function(){
                     .text(i18n.t('no_clients')))
         }
 
-    });				
+    });
 });
 </script>
